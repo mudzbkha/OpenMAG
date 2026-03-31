@@ -79,13 +79,14 @@ class Qwen25VLExtractor():
         self.model_name = model_name
         self.device = device
 
-        local_path = f"/root/autodl-tmp/hf_cache/{model_name}"
+        # local_path = f"/root/autodl-tmp/hf_cache/{model_name}"
+        repo_id = "Qwen/Qwen2.5-VL-3B-Instruct"
         self.model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
-            local_path,
+            repo_id,
             torch_dtype=torch.bfloat16,
             device_map=device
         )
-        self.processor = AutoProcessor.from_pretrained(local_path)
+        self.processor = AutoProcessor.from_pretrained(repo_id)
         self.model.eval()
 
         self.hidden_size = self.model.config.hidden_size
@@ -115,7 +116,12 @@ class Qwen25VLExtractor():
         pil_images = []
 
         for img in image:
-            if isinstance(img, str):
+            # ======= 新增的修复逻辑开始 =======
+            if img is None:
+                # 遇到缺失的图片，生成一张 224x224 的纯黑 RGB 图片作为占位符
+                pil_img = Image.new('RGB', (224, 224), color=(0, 0, 0))
+            # ======= 新增的修复逻辑结束 =======
+            elif isinstance(img, str):
                 pil_img = Image.open(img).convert("RGB")
             else:
                 pil_img = img.convert("RGB")
@@ -137,13 +143,17 @@ class CLIPExtractor():
         self.model_name = model_name
         self.device = device
 
-        local_path = f"/root/autodl-tmp/hf_cache/{model_name}"
+        # local_path = f"/root/autodl-tmp/hf_cache/{model_name}"
+
+        # 修改为直接使用 Hugging Face Hub 上的模型，而不是本地路径
+        repo_id = f"openai/clip-vit-large-patch14"
+
         self.model = CLIPModel.from_pretrained(
-            local_path,
+            repo_id,
             torch_dtype=torch.bfloat16,
             device_map=device
         )
-        self.processor = CLIPProcessor.from_pretrained(local_path)
+        self.processor = CLIPProcessor.from_pretrained(repo_id)
         self.model.eval()
 
         self.hidden_size = self.model.config.projection_dim

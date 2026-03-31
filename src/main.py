@@ -4,6 +4,10 @@ from omegaconf import DictConfig, OmegaConf
 import os
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
+
+# 新增这一行：强制使用 Hugging Face 国内镜像源
+os.environ["HF_ENDPOINT"] = "https://hf-mirror.com"
+
 import sys
 from pathlib import Path
 
