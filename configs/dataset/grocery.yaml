@@ -1,11 +1,11 @@
 name: Grocery
-data_root: /root/autodl-tmp/MMAG
+data_root: ./Data
 
-text_path: /root/autodl-tmp/MMAG/Grocery/Grocery.csv
-image_path: /root/autodl-tmp/MMAG/Grocery/GroceryImages_extracted/GroceryImages
-graph_path: /root/autodl-tmp/MMAG/Grocery/GroceryGraph.pt
-v_emb_path: /root/autodl-tmp/MMAG/Grocery/image_features/Grocery_image_Qwen_Qwen2_5_VL_3B_Instruct_768d.npy
-t_emb_path: /root/autodl-tmp/MMAG/Grocery/text_features/Grocery_text_Qwen_Qwen2_5_VL_3B_Instruct_768d.npy
+text_path: ./Data/Grocery/Grocery.csv
+image_path: ./Data/Grocery/GroceryImages
+graph_path: ./Data/Grocery/GroceryGraph.pt
+v_emb_path: ./Data/Grocery/ImageFeatures/Grocery_image_clip_vit_large_patch14_768d.npy
+t_emb_path: ./Data/Grocery/TextFeatures/Grocery_text_clip_vit_large_patch14_768d.npy
 train_ratio: 0.6
 val_ratio: 0.2
 lp_val_ratio: 0.1
