@@ -9,7 +9,7 @@ outputs/
 
 *.pth
 *.ckpt
-*.pt
+
 *.pkl
 *.whl
 
